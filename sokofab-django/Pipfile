@@ -10,6 +10,10 @@ djangorestframework = "*"
 django-heroku = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
+dj-database-url = "*"
+psycopg2-binary = "*"
+django-environ = "*"
+whitenoise = "*"
 
 [dev-packages]
 

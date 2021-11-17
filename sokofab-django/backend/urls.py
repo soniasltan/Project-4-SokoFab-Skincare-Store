@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from mainapp.views import FirstView, SecondView
+from rest_framework import routers
+from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('first/', FirstView.as_view()),
+    path("second/<param>/", SecondView.as_view())
 ]
