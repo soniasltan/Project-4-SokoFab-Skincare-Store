@@ -14,6 +14,7 @@ dj-database-url = "*"
 psycopg2-binary = "*"
 django-environ = "*"
 whitenoise = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
