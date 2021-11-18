@@ -6,6 +6,9 @@ type ProductsType = {
     brand: string;
     type: string;
     price: number;
+    description: string;
+    image: string;
+    ingredients: string;
 }
 
 const ShowProducts = () => {
@@ -19,11 +22,17 @@ const ShowProducts = () => {
         }
         fetchProducts()
     }, [])
+    console.log(products)
 
     return (
         <ul>
             {products.map((product) => (
-                <li key={product.id}>{product.name}</li>
+                <>
+                <li key={product.id}>
+                <img src={product.image} alt={product.name}/>
+                {product.name}
+                </li>
+                </>
             ))}
         </ul>
     )
