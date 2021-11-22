@@ -1,9 +1,11 @@
 import React from 'react';
-import {Routes, Route, Link} from "react-router-dom"
+import {Routes, Route} from "react-router-dom"
 import CssBaseline from "@mui/material/CssBaseline";
 import ProductsList from './components/ProductsList'
 import {createTheme, ThemeProvider} from "@mui/material/styles"
 import Navbar from './components/Navbar'
+import Login from './components/Login'
+import Signup from './components/Signup'
 
 function App() {
 
@@ -33,6 +35,8 @@ function App() {
       <Route path="/" element={<Welcome />} />
       <Route path="/products" element={<ProductsList />} />
         <Route path=":productname"/>
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
     </ThemeProvider>

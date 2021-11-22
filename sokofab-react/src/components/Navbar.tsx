@@ -1,10 +1,11 @@
 import * as React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SearchIcon from '@mui/icons-material/Search';
+import Button from '@mui/material/Button';
 import { styled, alpha } from '@mui/material/styles';
 import { NavPage } from './NavbarStyle'
 import InputBase from '@mui/material/InputBase';
@@ -80,6 +81,12 @@ const Navbar = () => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          <Link to={"/login"}>
+          <Button color="inherit">Login</Button>
+          </Link >
+          <Link to={"/signup"}>
+          <Button color="inherit">Sign Up</Button>
+          </Link>
           </Toolbar>
         </AppBar>
       </Box>
