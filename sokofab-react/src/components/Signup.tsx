@@ -1,4 +1,7 @@
 import * as React from 'react';
+import {useState} from "react";
+import AxiosInstance from "../AxiosInstance";
+import { useNavigate } from 'react-router';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,16 +14,40 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-
 const Signup = () => {
+    let navigate = useNavigate()
+
+    const [formData, updateFormData] = useState({
+        username: "",
+        email: "",
+        first_name: "",
+        last_name: "",
+        password: "",
+    })
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        updateFormData({
+            ...formData,
+            [event.target.name]: event.target.value.trim()
+        })
+    }
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
+        console.log(formData);
+
+        AxiosInstance.post('user/signup/', {
+            username: formData.username,
+            email: formData.email, 
+            first_name: formData.first_name,
+            last_name: formData.last_name,
+            password: formData.password,
+        })
+        .then((res) => {
+            navigate("/login")
+            console.log(res)
+            console.log(res.data)
+        })
       };
     
     return (
@@ -46,23 +73,35 @@ const Signup = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="fname"
-                  name="firstName"
+                  autoComplete="first_name"
+                  name="first_name"
                   required
                   fullWidth
-                  id="firstName"
+                  id="first_name"
                   label="First Name"
-                  autoFocus
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
+                  id="last_name"
                   label="Last Name"
-                  name="lastName"
-                  autoComplete="lname"
+                  name="last_name"
+                  autoComplete="last_name"
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="username"
+                  name="username"
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -73,6 +112,7 @@ const Signup = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -84,8 +124,20 @@ const Signup = () => {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={handleChange}
                 />
               </Grid>
+                {/* <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password2"
+                  label="Confirm Password"
+                  type="password"
+                  id="password2"
+                  autoComplete="new-password"
+                />
+              </Grid> */}
             </Grid>
             <Button
               type="submit"

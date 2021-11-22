@@ -16,10 +16,6 @@ from datetime import timedelta
 import environ
 import os
 env = environ.Env(DEBUG=(bool, False))
-# SECRET_KEY_VAL=env('SECRET_KEY')
-# DB_NAME=env('DB_NAME')
-# DB_USERNAME=env('DB_USERNAME')
-# DB_PASSWORD=env('DB_PASSWORD')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +34,11 @@ DEBUG = True
 
 # ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'user.User'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+    'user.backends.CaseInsensitiveModelBackend'
+)
 
 # Application definition
 
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mainapp.apps.MainappConfig',
+    'user',
     'rest_framework', 
     'corsheaders',
 ]
@@ -70,12 +72,12 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.AllowAny',
     ),
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -179,6 +181,3 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_heroku.settings(locals())
-
-# import dj_database_url
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)

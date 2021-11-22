@@ -15,7 +15,7 @@ class Product(models.Model):
 
 class Comment(models.Model):
     username = models.CharField(max_length=100)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     text = models.TextField()
 
     def __str__(self):
