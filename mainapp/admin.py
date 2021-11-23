@@ -8,7 +8,12 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("brand","name",)}
 
 admin.site.register(Product, ProductAdmin)
-admin.site.register(Comment)
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display=["product", "rating", "username"]
+    list_filter=["product", "rating"]
+
+admin.site.register(Comment, CommentAdmin)
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']

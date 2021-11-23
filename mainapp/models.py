@@ -38,3 +38,7 @@ class Comment(models.Model):
     def __str__(self):
         return "[" + str(self.created_on) + "] " + self.username.username
 
+# class Cart(models.Model):
+#     username = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name="cart")
+#     # products = 
+

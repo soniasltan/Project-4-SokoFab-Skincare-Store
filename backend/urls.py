@@ -16,24 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from rest_framework_simplejwt import views as jwt_views
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from mainapp.views import ProductsViewSet
+from mainapp import views
 
 
 router = routers.DefaultRouter()
-router.register(r'products', ProductsViewSet)
+# router.register(r'products', ProductsViewSet)
 
 urlpatterns = [
     path('api/', include((router.urls, 'products'))),
+    path('api/products/', views.productsList, name="list_products"),
+    path('api/products/<slug:slug>/', views.showProduct, name="show_product"),
     path('api/user/', include('user.urls', namespace='users')),
-    path('api-auth/', include('rest_framework.urls'), name='home'),
+    path('api-auth/', include('rest_framework.urls'), name='rest_framework'),
     path('api/token/',
          TokenObtainPairView.as_view(),
          name='token_obtain_pair'),
     path('api/token/refresh/',
          TokenRefreshView.as_view(),
          name='token_refresh'),
-    # path('user/login/', LoginView.as_view(), name="auth-login"),
     path('admin/', admin.site.urls),
 ]
