@@ -1,5 +1,5 @@
 import * as React from "react";
-import axiosInstance from "../axiosInstance";
+import {axiosInstance, CommonHeaderProperties} from "../axiosInstance";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
@@ -15,10 +15,6 @@ import Container from "@mui/material/Container";
 // import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 // const theme = createTheme();
-
-interface CommonHeaderProperties {
-  Authorization: string | null;
-}
 
 const Login = () => {
   let navigate = useNavigate();

@@ -1,6 +1,6 @@
 import * as React from "react"
 import {useEffect} from "react"
-import axiosInstance, {CommonHeaderProperties} from "../axiosInstance"
+import {axiosInstance, CommonHeaderProperties} from "../axiosInstance"
 import {useNavigate} from "react-router-dom"
 
 const Logout = () => {
