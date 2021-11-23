@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react"
+import axios from "axios"
 // import { Link } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -18,6 +19,8 @@ type ProductsType = {
     ingredients: string;
 }
 
+const URL = process.env.REACT_APP_AXIOS_BASEURL
+
 const ShowProducts = () => {
     const [status, setStatus] = useState<string>("idle");
     const [products, setProducts] = useState<ProductsType[]>([])
@@ -25,10 +28,10 @@ const ShowProducts = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             setStatus("pending");
-            const response = await fetch("http://localhost:8000/products/")
-            const products: ProductsType[] = await response.json()
+            const res = await axios.get(URL + "/products/")
+            const data: ProductsType[] = res.data
             setStatus("resolved");
-            setProducts(products)
+            setProducts(data)
         }
         fetchProducts()
     }, [])

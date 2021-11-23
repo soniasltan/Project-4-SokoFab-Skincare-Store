@@ -25,7 +25,7 @@ router = routers.DefaultRouter()
 router.register(r'products', ProductsViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('api/', include((router.urls, 'products'))),
     path('api/user/', include('user.urls', namespace='users')),
     path('api-auth/', include('rest_framework.urls'), name='home'),
     path('api/token/',

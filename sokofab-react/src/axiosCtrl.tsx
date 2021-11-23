@@ -4,7 +4,7 @@ export interface CommonHeaderProperties {
   Authorization: string | null;
 }
 
-const baseURL = "http://localhost:8000/api";
+const baseURL = process.env.REACT_APP_AXIOS_BASEURL;
 
 export const axiosInstance = axios.create({
   baseURL: baseURL,
