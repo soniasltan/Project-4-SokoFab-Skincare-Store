@@ -7,5 +7,7 @@ class ProductsSerializer(serializers.HyperlinkedModelSerializer):
         model = Product
         fields = ['id', 'name', 'brand', 'type', 'price', 'description', 'image', 'ingredients']
 
+# class CategorySerializer
+
 class TokenSerializer(serializers.Serializer):
     token = serializers.CharField(max_length=255)
