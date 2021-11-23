@@ -5,7 +5,10 @@ import ProductsList from './components/ProductsList'
 import {createTheme, ThemeProvider} from "@mui/material/styles"
 import Navbar from './components/Navbar'
 import Login from './components/Login'
+import Logout from "./components/Logout"
 import Signup from './components/Signup'
+import MyAccount from "./components/MyAccount"
+
 
 function App() {
 
@@ -36,7 +39,9 @@ function App() {
       <Route path="/products" element={<ProductsList />} />
         <Route path=":productname"/>
       <Route path="/login" element={<Login />} />
+      <Route path="/logout" element={<Logout />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/account" element={<MyAccount />} />
       </Routes>
     </div>
     </ThemeProvider>

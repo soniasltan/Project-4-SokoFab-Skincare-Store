@@ -81,12 +81,18 @@ const Navbar = () => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <Link to={"/login"}>
-          <Button color="inherit">Login</Button>
-          </Link >
+          <Link to={"/account"}>
+          <Button color="inherit">Account</Button>
+          </Link>
           <Link to={"/signup"}>
           <Button color="inherit">Sign Up</Button>
           </Link>
+          <Link to={"/login"}>
+          <Button color="inherit">Login</Button>
+          </Link >
+          <Link to={"/logout"}>
+          <Button color="inherit">Log out</Button>
+          </Link >
           </Toolbar>
         </AppBar>
       </Box>

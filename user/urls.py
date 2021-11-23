@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import CreateUserView
+from .views import BlacklistTokenView, CreateUserView
 
 app_name = "user"
 
 urlpatterns = [
-    path("signup/", CreateUserView.as_view(), name="create_user")
+    path("signup/", CreateUserView.as_view(), name="create_user"),
+    path("logout/blacklist/", BlacklistTokenView.as_view(), name="blacklist")
 ]

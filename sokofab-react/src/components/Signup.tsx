@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState} from "react";
-import AxiosInstance from "../AxiosInstance";
+import axiosInstance from "../axiosInstance";
 import { useNavigate } from 'react-router';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -36,7 +36,7 @@ const Signup = () => {
         event.preventDefault();
         console.log(formData);
 
-        AxiosInstance.post('user/signup/', {
+        axiosInstance.post('user/signup/', {
             username: formData.username,
             email: formData.email, 
             first_name: formData.first_name,
@@ -149,7 +149,7 @@ const Signup = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Log in
                 </Link>
               </Grid>
