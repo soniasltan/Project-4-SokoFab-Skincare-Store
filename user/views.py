@@ -1,12 +1,13 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+import user
 from .serializers import CreateUserSerializer
 from .models import User
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
-# from rest_framework.decorators import api_view, permission_classes
-from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
 
 class CreateUserView(APIView):
@@ -33,8 +34,9 @@ class BlacklistTokenView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-@login_required
-def account(request, username):
-    account_details = get_object_or_404(User, username=username)
-    serializer = CreateUserSerializer(account_details, many=False)
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def account(request):
+    user = request.user
+    serializer = CreateUserSerializer(user, many=False)
     return Response(serializer.data)

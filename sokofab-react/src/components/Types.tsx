@@ -12,3 +12,11 @@ export type ProductsType = {
     quantity: number;
     comments: string[];
 }
+
+export type AccountType = {
+    username: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    password: string;
+}

@@ -28,7 +28,7 @@ urlpatterns = [
     path('api/products/', views.productsList, name="list_products"),
     path('api/products/<slug:slug>/', views.showProduct, name="show_product"),
     path('api/user/', include('user.urls', namespace='users')),
-    path('api-auth/', include('rest_framework.urls'), name='rest_framework'),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/token/',
          TokenObtainPairView.as_view(),
          name='token_obtain_pair'),
