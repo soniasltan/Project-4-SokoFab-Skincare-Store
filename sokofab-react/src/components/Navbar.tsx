@@ -1,16 +1,19 @@
 import * as React from "react";
+import {useState} from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SearchIcon from '@mui/icons-material/Search';
+import FormControl from "@mui/material/FormControl"
 import Button from '@mui/material/Button';
 import { styled, alpha } from '@mui/material/styles';
 import { NavPage } from './NavbarStyle'
 import InputBase from '@mui/material/InputBase';
 
-const Search = styled('div')(({ theme }) => ({
+const Search = styled('form')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -54,6 +57,19 @@ const Search = styled('div')(({ theme }) => ({
   
 
 const Navbar = () => {
+  const [keyword, setKeyword] = useState("")
+  let navigate = useNavigate()
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value)
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (keyword) {
+      navigate("/products/search/"+keyword)
+    }
+  }
+  
     return (
         <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
@@ -72,13 +88,14 @@ const Navbar = () => {
               </Typography>
               </NavLink>
             </NavPage>
-            <Search>
+            <Search onSubmit={handleSubmit}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handleChange}
             />
           </Search>
           <Link to={"/account"}>

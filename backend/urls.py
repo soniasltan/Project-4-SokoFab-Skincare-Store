@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/', include((router.urls, 'products'))),
     path('api/products/', views.productsList, name="list_products"),
     path('api/products/<slug:slug>/', views.showProduct, name="show_product"),
+    path('api/products/search', views.searchProducts, name="product_search"),
     path('api/user/', include('user.urls', namespace='users')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/token/',

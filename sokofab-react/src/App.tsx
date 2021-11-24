@@ -9,6 +9,7 @@ import Logout from "./components/Logout"
 import Signup from './components/Signup'
 import ShowProduct from "./components/ShowProduct"
 import MyAccount from "./components/MyAccount"
+import SearchProducts from "./components/SearchProducts"
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
       <Route path="/" element={<Welcome />} />
       <Route path="/products" element={<ProductsList />} />
       <Route path="/products/:productslug" element={<ShowProduct />} />
+      <Route path="/products/search/:keyword" element={<SearchProducts />} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/signup" element={<Signup />} />
