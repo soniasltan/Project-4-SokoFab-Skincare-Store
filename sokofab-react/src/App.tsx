@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import Login from './components/Login'
 import Logout from "./components/Logout"
 import Signup from './components/Signup'
+import ShowProduct from "./components/ShowProduct"
 import MyAccount from "./components/MyAccount"
 
 
@@ -37,7 +38,7 @@ function App() {
       <Routes>
       <Route path="/" element={<Welcome />} />
       <Route path="/products" element={<ProductsList />} />
-        <Route path=":productname"/>
+      <Route path="/products/:productslug" element={<ShowProduct />} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/signup" element={<Signup />} />

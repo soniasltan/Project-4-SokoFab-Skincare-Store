@@ -25,6 +25,8 @@ const Signup = () => {
         password: "",
     })
 
+    const [error, setError] = useState("")
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         updateFormData({
             ...formData,
@@ -36,7 +38,7 @@ const Signup = () => {
         event.preventDefault();
         console.log(formData);
 
-        axiosInstance.post('user/signup/', {
+          axiosInstance.post('user/signup/', {
             username: formData.username,
             email: formData.email, 
             first_name: formData.first_name,
@@ -48,7 +50,17 @@ const Signup = () => {
             console.log(res)
             console.log(res.data)
         })
+        .catch((error) => {
+          setError(error.response.data)
+          console.log(error.response.data)
+        })
       };
+
+      let errors = Object?.entries(error).map((err) => {
+        return(
+          <li>{err[0]}: {err[1][0]}</li>
+        )
+      })
     
     return (
         <>
@@ -70,6 +82,13 @@ const Signup = () => {
             Sign up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            {error ? (
+              <>
+              <p>Please correct the following errors:</p>
+              {errors}
+              <br />
+              </>
+            ) : " "}
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField

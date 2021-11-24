@@ -1,25 +1,14 @@
 import {useState, useEffect} from "react"
 import axios from "axios"
-// import { Link } from "react-router-dom";
+import {baseURL} from "../axiosCtrl"
+import { Link } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-
-type ProductsType = {
-    id: number;
-    name: string;
-    brand: string;
-    type: string;
-    price: number;
-    description: string;
-    image: string;
-    ingredients: string;
-}
-
-const URL = process.env.REACT_APP_AXIOS_BASEURL
+import {ProductsType} from "./Types";
 
 const ShowProducts = () => {
     const [status, setStatus] = useState<string>("idle");
@@ -28,7 +17,7 @@ const ShowProducts = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             setStatus("pending");
-            const res = await axios.get(URL + "/products/")
+            const res = await axios.get(baseURL + "/products/")
             const data: ProductsType[] = res.data
             setStatus("resolved");
             setProducts(data)
@@ -41,7 +30,7 @@ let cards = products.map((product) => {
     return (
         <Grid item key={product.id} xs={12} sm={6} md={4}>
           <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-            {/* <Link to={"/products/" + product.name} style={{ color: "black" }}> */}
+            <Link to={"/products/" + product.slug} style={{ color: "black" }}>
               <CardMedia
                 component="img"
                 height="200"
@@ -53,7 +42,7 @@ let cards = products.map((product) => {
                   {product.brand} {product.name}
                 </Typography>
               </CardContent>
-            {/* </Link> */}
+            </Link>
           </Card>
         </Grid>
       );
