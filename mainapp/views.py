@@ -19,7 +19,7 @@ def productsList(request):
 
 @api_view(["GET"])
 def showProduct(request, slug):
-    product = get_object_or_404(Product, slug=slug, in_stock=True)
+    product = get_object_or_404(Product, slug=slug)
     serializer = ProductsSerializer(product, many=False)
     return Response(serializer.data)
 
@@ -31,5 +31,6 @@ def searchProducts(request):
         products = Product.objects.annotate(search=SearchVector("brand", "name"),).filter(search=query)
     serializer = ProductsSerializer(products, many=True)
     return Response(serializer.data)
-    
+
+
 

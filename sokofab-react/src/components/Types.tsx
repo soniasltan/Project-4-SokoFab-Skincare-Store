@@ -20,3 +20,17 @@ export type AccountType = {
     last_name: string;
     password: string;
 }
+
+export type BagItemsType = {
+    name: string;
+    brand: string;
+    image: string;
+    price: number;
+    quantity: number;
+}
+
+export type TabPanelProps = {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+  }

@@ -10,6 +10,7 @@ import Signup from './components/Signup'
 import ShowProduct from "./components/ShowProduct"
 import MyAccount from "./components/MyAccount"
 import SearchProducts from "./components/SearchProducts"
+import Bag from "./components/Bag"
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
       <Route path="/logout" element={<Logout />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/account" element={<MyAccount />} />
+      <Route path="/bag" element={<Bag />}/>
       </Routes>
     </div>
     </ThemeProvider>
