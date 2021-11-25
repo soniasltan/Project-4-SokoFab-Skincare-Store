@@ -3,7 +3,7 @@ import {Routes, Route} from "react-router-dom"
 import CssBaseline from "@mui/material/CssBaseline";
 import ProductsList from './components/ProductsList'
 import {createTheme, ThemeProvider} from "@mui/material/styles"
-import Navbar from './components/Navbar'
+import Header from './components/Header'
 import Login from './components/Login'
 import Logout from "./components/Logout"
 import Signup from './components/Signup'
@@ -18,7 +18,7 @@ function App() {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#caffbf",
+        main: "#005f73",
       },
       secondary: {
         main: "#ffadad",
@@ -26,17 +26,19 @@ function App() {
     }
   })
 
-  const Welcome = () => {
-    return (
-      <h1>Welcome to Soko Fab</h1>
-    )
-  }
+  const sections = [
+    { title: 'Cleansers', url: '#' },
+    { title: 'Moisturizers', url: '#' },
+    { title: 'Masks', url: '#' },
+    { title: 'Suncare', url: '#' },
+  ];
+
   return (
     <>
     <ThemeProvider theme={theme}>
     <CssBaseline />
     <div className="App">
-      <Navbar />
+      <Header title="SOKO FAB" sections={sections}/>
       <Routes>
       <Route path="/" element={<ProductsList />} />
       <Route path="/products" element={<ProductsList />} />

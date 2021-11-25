@@ -38,10 +38,10 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3, height: "250px", overflow: "scroll"}}>
-          <Typography>{children}</Typography>
+          <Typography variant="body2">{children}</Typography>
         </Box>
       )}
-    </div> 
+    </div>
   );
 }
 
@@ -59,7 +59,6 @@ const ShowProducts = () => {
   const [qty, setQty] = useState<number>(1);
   const [bag, setBag] = useState<BagItemsType[]>();
   const [value, setValue] = React.useState(0);
-  const [truncate, setTruncate] = useState<boolean>(true)
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -227,7 +226,7 @@ const ShowProducts = () => {
                   {product?.description}
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                  {product?.ingredients}
+                  {product?.ingredients.toUpperCase()}
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                   Reviews here sigh

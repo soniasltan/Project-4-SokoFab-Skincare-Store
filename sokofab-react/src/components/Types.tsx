@@ -34,3 +34,11 @@ export type TabPanelProps = {
     index: number;
     value: number;
   }
+
+export type HeaderProps = {
+    sections: ReadonlyArray<{
+        title: string;
+        url: string;
+      }>;
+      title: string;
+}

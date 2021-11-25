@@ -12,9 +12,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-// const theme = createTheme();
 
 const Login = () => {
   let navigate = useNavigate();
@@ -57,7 +55,6 @@ const Login = () => {
   };
   return (
     <>
-      {/* <ThemeProvider theme={theme}> */}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -102,10 +99,6 @@ const Login = () => {
               autoComplete="current-password"
               onChange={handleChange}
             />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-                /> */}
             <Button
               type="submit"
               fullWidth
@@ -115,11 +108,6 @@ const Login = () => {
               Login
             </Button>
             <Grid container>
-              {/* <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid> */}
               <Grid item>
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
@@ -128,9 +116,7 @@ const Login = () => {
             </Grid>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
-      {/* </ThemeProvider> */}
     </>
   );
 };
