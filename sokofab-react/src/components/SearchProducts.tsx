@@ -1,6 +1,6 @@
 import * as React from "react"
 import {useState, useEffect} from "react"
-import {useParams} from "react-router-dom"
+import {useLocation} from "react-router-dom"
 import axios from "axios"
 import {baseURL} from "../axiosCtrl"
 import { ProductsType } from "./Types"
@@ -13,19 +13,21 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
 const SearchProducts = () => {
-    let {keyword} = useParams()
     const [status, setStatus] = useState<string>("idle");
     const [products, setProducts] = useState<ProductsType[]>([])
-
+    let location=useLocation()
+    let keyword=location.search
+    
     useEffect(() => {
         const fetchSearch = async () => {
             setStatus("pending");
-            const res = await axios.get(baseURL + "/products/search?keyword="+ keyword)
+            const res = await axios.get(baseURL + "/products/search"+ keyword)
             const data: ProductsType[] = res.data
             setStatus("resolved");
             setProducts(data)
         }
         fetchSearch()
+        console.log(keyword)
     }, [keyword])
     console.log(products)
 

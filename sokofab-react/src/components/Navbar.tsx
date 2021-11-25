@@ -66,7 +66,7 @@ const Navbar = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (keyword) {
-      navigate("/products/search/"+keyword)
+      navigate("/search/?keyword="+keyword)
     }
   }
   

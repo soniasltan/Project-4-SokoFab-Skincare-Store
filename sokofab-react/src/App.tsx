@@ -37,10 +37,10 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-      <Route path="/" element={<Welcome />} />
+      <Route path="/" element={<ProductsList />} />
       <Route path="/products" element={<ProductsList />} />
       <Route path="/products/:productslug" element={<ShowProduct />} />
-      <Route path="/products/search/:keyword" element={<SearchProducts />} />
+      <Route path="/search/" element={<SearchProducts />} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/signup" element={<Signup />} />
