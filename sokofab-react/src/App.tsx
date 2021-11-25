@@ -11,6 +11,7 @@ import ShowProduct from "./components/ShowProduct"
 import MyAccount from "./components/MyAccount"
 import SearchProducts from "./components/SearchProducts"
 import Bag from "./components/Bag"
+import Home from "./components/Home"
 
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
     <div className="App">
       <Header title="SOKO FAB" sections={sections}/>
       <Routes>
-      <Route path="/" element={<ProductsList />} />
+      <Route path="/" element={<Home />} />
       <Route path="/products" element={<ProductsList />} />
       <Route path="/products/:productslug" element={<ShowProduct />} />
       <Route path="/search/" element={<SearchProducts />} />
