@@ -1,94 +1,112 @@
-import * as React from 'react';
-import {useState} from "react";
-import {axiosInstance} from "../axiosCtrl";
-import { useNavigate } from 'react-router';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from "react";
+import { useState } from "react";
+import { axiosInstance } from "../axiosCtrl";
+import { useNavigate } from "react-router";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 const Signup = () => {
-    let navigate = useNavigate()
+  let navigate = useNavigate();
 
-    const [formData, updateFormData] = useState({
-        username: "",
-        email: "",
-        first_name: "",
-        last_name: "",
-        password: "",
-    })
+  const [formData, updateFormData] = useState({
+    username: "",
+    email: "",
+    first_name: "",
+    last_name: "",
+    password: "",
+  });
 
-    const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        updateFormData({
-            ...formData,
-            [event.target.name]: event.target.value.trim()
-        })
-    }
+  const capitalizeFirst = (s: string) => {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log(formData);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    updateFormData({
+      ...formData,
+      [event.target.name]: event.target.value.trim(),
+    });
+  };
 
-          axiosInstance.post('user/signup/', {
-            username: formData.username,
-            email: formData.email, 
-            first_name: formData.first_name,
-            last_name: formData.last_name,
-            password: formData.password,
-        })
-        .then((res) => {
-            navigate("/login")
-            console.log(res)
-            console.log(res.data)
-        })
-        .catch((error) => {
-          setError(error.response.data)
-          console.log(error.response.data)
-        })
-      };
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(formData);
 
-      let errors = Object?.entries(error).map((err) => {
-        return(
-          <li>{err[0]}: {err[1][0]}</li>
-        )
+    axiosInstance
+      .post("user/signup/", {
+        username: formData.username,
+        email: formData.email,
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        password: formData.password,
       })
-    
+      .then((res) => {
+        navigate("/login");
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        setError(error.response.data);
+        console.log(error.response.data);
+      });
+  };
+
+  let errors = Object?.entries(error).map((err) => {
     return (
-        <>
-        {/* <ThemeProvider theme={theme}> */}
+      <li>
+        {capitalizeFirst(err[0])}: {capitalizeFirst(err[1][0])}
+      </li>
+    );
+  });
+
+  return (
+    <>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
+          <Typography variant="h5" align="center" sx={{ mt: "1em" }}>
+            Sign Up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             {error ? (
               <>
-              <p>Please correct the following errors:</p>
-              {errors}
-              <br />
+                <Typography
+                  variant="subtitle1"
+                  align="left"
+                  sx={{ color: "red", mt: "-1em" }}
+                >
+                  Error - please correct the following:
+                </Typography>
+                <Typography
+                  variant="body2"
+                  align="left"
+                  sx={{ color: "red", mt: "0.3em" }}
+                >
+                  {errors}
+                </Typography>
+                <br />
               </>
-            ) : " "}
+            ) : (
+              " "
+            )}
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -146,26 +164,31 @@ const Signup = () => {
                   onChange={handleChange}
                 />
               </Grid>
-                {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password2"
-                  label="Confirm Password"
-                  type="password"
-                  id="password2"
-                  autoComplete="new-password"
-                />
-              </Grid> */}
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
+            {!formData.username ||
+            !formData.email ||
+            !formData.first_name ||
+            !formData.last_name ||
+            !formData.password ? (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                disabled
+              >
+                Sign Up
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+            )}
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
@@ -175,11 +198,9 @@ const Signup = () => {
             </Grid>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 5 }} /> */}
       </Container>
-    {/* </ThemeProvider> */}
-        </>
-    )
-}
+    </>
+  );
+};
 
-export default Signup
+export default Signup;

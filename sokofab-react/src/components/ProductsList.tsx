@@ -53,18 +53,22 @@ const ShowProducts = () => {
   return (
     <>
       <div className="results">
+        <Typography variant="h5" align="center" sx={{mt: "1em"}}>
+            All Products
+          </Typography>
         {status === "pending" ? (
           <Box sx={{ display: "flex" }}>
             <CircularProgress size={80} sx={{ margin: "25% auto" }} />
           </Box>
         ) : (
-          ""
-        )}
+          <>
         <Container maxWidth="lg" sx={{ mt: 7 }}>
           <Grid container spacing={4}>
             {cards}
           </Grid>
         </Container>
+        </>
+        )}
       </div>
     </>
   );

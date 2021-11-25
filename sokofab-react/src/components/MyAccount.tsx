@@ -5,6 +5,7 @@ import axios from "axios";
 import { AccountType } from "./Types";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const MyAccount = () => {
   const [status, setStatus] = useState<string>("idle");
@@ -29,7 +30,9 @@ const MyAccount = () => {
 
   return (
     <>
-      <h1>Account Details</h1>
+      <Typography variant="h5" align="center" sx={{mt: "1em"}}>
+            Account Details
+          </Typography>
       {token === null ? (
         "Please log in to view account details"
       ) : status === "pending" ? (

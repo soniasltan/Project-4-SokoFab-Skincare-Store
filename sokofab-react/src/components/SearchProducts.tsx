@@ -60,13 +60,16 @@ const SearchProducts = () => {
   return (
     <>
       <div className="results">
+        <Typography variant="h5" align="center" sx={{mt: "1em"}}>
+            Search
+          </Typography>
         {status === "pending" ? (
           <Box sx={{ display: "flex" }}>
             <CircularProgress size={80} sx={{ margin: "20% auto" }} />
           </Box>
         ) : (
         <>
-        <Typography gutterBottom variant="subtitle1" component="div" sx={{paddingLeft: "1em", mt: "1em"}}>
+        <Typography gutterBottom variant="subtitle1" align="center" component="div" sx={{paddingLeft: "1em", mt: "0.5em"}}>
             {!results ? (
                 `No products found for search "${searchTerm}".`
             ) : results === 1 ? (

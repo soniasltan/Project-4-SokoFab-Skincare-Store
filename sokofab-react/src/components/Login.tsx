@@ -1,5 +1,5 @@
 import * as React from "react";
-import {axiosInstance, CommonHeaderProperties} from "../axiosCtrl";
+import { axiosInstance, CommonHeaderProperties } from "../axiosCtrl";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
@@ -12,7 +12,6 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
 
 const Login = () => {
   let navigate = useNavigate();
@@ -59,16 +58,12 @@ const Login = () => {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography variant="h5" align="center" sx={{ mt: "1em" }}>
             Login
           </Typography>
           <Box
@@ -99,14 +94,26 @@ const Login = () => {
               autoComplete="current-password"
               onChange={handleChange}
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Login
-            </Button>
+            {!login.email || !login.password ? (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                disabled
+              >
+                Login
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Login
+              </Button>
+            )}
             <Grid container>
               <Grid item>
                 <Link href="/signup" variant="body2">
