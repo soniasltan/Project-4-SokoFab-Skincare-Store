@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Link from "@mui/material/Link";
 import CircularProgress from "@mui/material/CircularProgress";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -104,9 +105,11 @@ localStorage.setItem("bagItems", JSON.stringify(bag))
               alignItems: "center",
             }}
           >
+            <Link href={"/brands/"+product?.brand} underline="none">
             <Typography component="h1" variant="h5" sx={{ mt: 3 }}>
               <strong>{product?.brand.toUpperCase()}</strong>
             </Typography>
+              </Link>
             <Typography component="h2" variant="h5">
               {product?.name}
             </Typography>

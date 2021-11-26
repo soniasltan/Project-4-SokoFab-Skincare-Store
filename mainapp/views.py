@@ -38,5 +38,11 @@ def listCategory(request, name):
     serializer = ProductsSerializer(category, many=True)
     return Response(serializer.data)
 
+@api_view(["GET"])
+def listBrand(request, brand):
+    category = Product.objects.filter(brand=brand)
+    serializer = ProductsSerializer(category, many=True)
+    return Response(serializer.data)
+
 
 

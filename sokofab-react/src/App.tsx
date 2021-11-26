@@ -14,6 +14,7 @@ import Bag from "./components/Bag"
 import Home from "./components/Home"
 import ShowCategory from './components/ShowCategory';
 import Checkout from "./components/Checkout"
+import ShowBrand from "./components/ShowBrand"
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
       <Route path="/products" element={<ProductsList />} />
       <Route path="/products/:productslug" element={<ShowProduct />} />
       <Route path="/category/:categoryname" element={<ShowCategory />}/>
+      <Route path="/brands/:brandname" element={<ShowBrand />}/>
       <Route path="/search/" element={<SearchProducts />} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
