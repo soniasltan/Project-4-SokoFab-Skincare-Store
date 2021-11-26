@@ -35,7 +35,7 @@ const Bag = () => {
     ?.map((item: ProductsType) => item.quantity)
     ?.reduce((a: number, c: number) => {
       return a + c;
-    });
+    }, []);
 
 
     let products = bagItems?.map((item: ProductsType, index: number) => {
@@ -68,7 +68,7 @@ const Bag = () => {
       <Typography variant="h5" align="center" sx={{ mt: "1em" }}>
         Shopping Bag
       </Typography>
-      {!bagItems ? (
+      {(!bagItems || bagItems.length) === 0 ? (
         <>
         <Container sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
         <Typography variant="body1" align="center" sx={{ mt: "1em" }}>
