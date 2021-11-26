@@ -11,7 +11,7 @@ export const Search = styled("form")(({ theme }) => ({
   marginRight: theme.spacing(1),
   marginLeft: 0,
   width: "100%",
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up("xs")]: {
     marginLeft: theme.spacing(0),
     width: "15ch",
   },
@@ -35,8 +35,8 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(2.5)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "5ch",
+    [theme.breakpoints.up("xs")]: {
+      width: "10ch",
     },
   },
 }));

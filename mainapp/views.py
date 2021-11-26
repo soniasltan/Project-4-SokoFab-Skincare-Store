@@ -2,8 +2,8 @@ from rest_framework.serializers import Serializer
 from .models import Product, Category, Comment
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
-from .serializers import ProductsSerializer
+from django.shortcuts import get_object_or_404, get_list_or_404
+from .serializers import ProductsSerializer, CategorySerializer
 from django.contrib.postgres.search import SearchVector
 
 # class ProductsViewSet(viewsets.ModelViewSet):
@@ -30,6 +30,12 @@ def searchProducts(request):
     if query is not None:
         products = Product.objects.annotate(search=SearchVector("brand", "name"),).filter(search=query)
     serializer = ProductsSerializer(products, many=True)
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def listCategory(request, name):
+    category = Product.objects.filter(category__name=name)
+    serializer = ProductsSerializer(category, many=True)
     return Response(serializer.data)
 
 

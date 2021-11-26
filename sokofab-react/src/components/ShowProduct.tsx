@@ -2,28 +2,18 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { baseURL } from "../axiosCtrl";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ProductsType, BagItemsType, TabPanelProps } from "./Types";
-import Grid from "@mui/material/Grid";
-import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import FormControl from "@mui/material/FormControl";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-const theme = createTheme({
-  palette: {
-    action: {
-      disabledBackground: "white",
-      disabled: "black",
-    },
-  },
-});
+import CircularProgress from "@mui/material/CircularProgress";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -37,7 +27,7 @@ function TabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3, height: "250px", overflow: "scroll"}}>
+        <Box sx={{ p: 3, height: "250px", overflow: "scroll" }}>
           <Typography variant="body2">{children}</Typography>
         </Box>
       )}
@@ -54,10 +44,11 @@ function a11yProps(index: number) {
 
 const ShowProducts = () => {
   let { productslug } = useParams();
+  let navigate = useNavigate()
   const [status, setStatus] = useState<string>("idle");
   const [product, setProduct] = useState<ProductsType>();
   const [qty, setQty] = useState<number>(1);
-  const [bag, setBag] = useState<BagItemsType[]>();
+  const [bag, setBag] = useState([] as BagItemsType[])
   const [value, setValue] = React.useState(0);
 
   useEffect(() => {
@@ -75,165 +66,102 @@ const ShowProducts = () => {
     setValue(newValue);
   };
 
-  const handleIncrement = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    if (product?.quantity) {
-      if (product?.quantity > qty + 1) {
-        setQty(qty + 1);
+  const handleSelect = (event: SelectChangeEvent) => {
+    setQty(parseInt(event.target.value))
+  };
+
+  const handleSubmit = () => {
+    if (product) {
+        const exists = bag.find(item => item.id === product.id)
+        if (exists) {
+          setBag(bag.map(item =>
+            item.id === product.id ? {...exists, quantity: exists.quantity + qty}
+            : item))
+        } else {
+          setBag([...bag, {...product, quantity: qty}])
+        }
       }
-    }
-  };
-
-  const handleDecrement = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    if (qty >= 1) {
-      setQty(qty - 1);
-    }
-  };
-
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    if (bag && product) {
-      setBag([
-        ...bag,
-        {
-          name: product.name,
-          brand: product.brand,
-          image: product.image,
-          price: product.price,
-          quantity: qty,
-        },
-      ]);
-    } else if (product) {
-      setBag([
-        {
-          name: product.name,
-          brand: product.brand,
-          image: product.image,
-          price: product.price,
-          quantity: qty,
-        },
-      ]);
-    }
-    console.log("bag", bag);
-    localStorage.setItem("bagItems", JSON.stringify(bag));
-  };
-
-  console.log("product", product);
+};
+localStorage.setItem("bagItems", JSON.stringify(bag))
 
   return (
     <>
       {status === "pending" ? (
-        "Loading item details"
+        <Box sx={{ display: "flex" }}>
+          <CircularProgress size={80} sx={{ margin: "20% auto" }} />
+        </Box>
       ) : (
         <>
-          <Grid container component="main" sx={{ height: "80vh" }}>
-            <CssBaseline />
-            <Grid
-              item
-              xs={false}
-              sm={4}
-              md={7}
-              sx={{
-                backgroundImage: `url(${product?.image})`,
-                backgroundRepeat: "no-repeat",
-                backgroundColor: (t) =>
-                  t.palette.mode === "light"
-                    ? t.palette.grey[50]
-                    : t.palette.grey[900],
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            />
-            <Grid
-              item
-              xs={12}
-              sm={8}
-              md={5}
-              component={Paper}
-              elevation={6}
-              square
-            >
-              <Box
-                sx={{
-                  my: 8,
-                  mx: 4,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <Typography component="h1" variant="h5">
-                  <strong>{product?.brand.toUpperCase()}</strong>
-                </Typography>
-                <Typography component="h2" variant="h5">
-                  {product?.name}
-                </Typography>
-                <Typography component="h6" variant="subtitle1">
-                  ${product?.price}
-                </Typography>
-                {!product?.quantity ? (
-                  <Button disabled variant="contained">
-                    OUT OF STOCK
-                  </Button>
-                ) : (
-                  <>
-                    <FormControl sx={{ m: 1, minWidth: 120 }}>
-                      <ButtonGroup
-                        size="small"
-                        aria-label="small outlined button group"
-                      >
-                        <Button variant="contained" onClick={handleIncrement}>
-                          +
-                        </Button>
-                        <ThemeProvider theme={theme}>
-                          <Button disabled>{qty}</Button>
-                        </ThemeProvider>
-                        {qty === 1 ? (
-                          <Button
-                            disabled
-                            variant="contained"
-                            onClick={handleDecrement}
-                          >
-                            -
-                          </Button>
-                        ) : (
-                          <Button variant="contained" onClick={handleDecrement}>
-                            -
-                          </Button>
-                        )}
-                      </ButtonGroup>
-                      <Button variant="contained" onClick={handleSubmit}>
-                        ADD TO BAG
-                      </Button>
-                    </FormControl>
-                  </>
-                )}
-              </Box>
-              <Box sx={{ width: "100%" }}>
-                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                  <Tabs
-                    value={value}
-                    onChange={handleTabChange}
-                    centered
+          <Box
+            component={Paper}
+            square
+            sx={{
+              width: "90%",
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography component="h1" variant="h5" sx={{ mt: 3 }}>
+              <strong>{product?.brand.toUpperCase()}</strong>
+            </Typography>
+            <Typography component="h2" variant="h5">
+              {product?.name}
+            </Typography>
+            <Typography component="h6" variant="subtitle1">
+              ${product?.price}
+            </Typography>
+            <img height="250px" src={product?.image} alt={product?.slug} />
+            {!product?.quantity ? (
+              <Button disabled variant="contained" sx={{ m: 1, mb: 2 }}>
+                OUT OF STOCK
+              </Button>
+            ) : (
+              <>
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                  <Select
+                    value={qty.toString()}
+                    onChange={handleSelect}
+                    displayEmpty
+                    sx={{height:"36.5px"}}
                   >
-                    <Tab label="Description" {...a11yProps(0)} />
-                    <Tab label="Ingredients" {...a11yProps(1)} />
-                    <Tab label="Reviews" {...a11yProps(2)} />
-                  </Tabs>
-                </Box>
-                <TabPanel value={value} index={0}>
-                  {product?.description}
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                  {product?.ingredients.toUpperCase()}
-                </TabPanel>
-                <TabPanel value={value} index={2}>
-                  Reviews here sigh
-                </TabPanel>
-              </Box>
-            </Grid>
-          </Grid>
+                    {[...Array(product?.quantity).keys()].map((x) => (
+                      <MenuItem key={x + 1} value={x + 1}>
+                        {x + 1}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <Button
+                    variant="contained"
+                    sx={{ mb: 2, mt: 1 }}
+                    onClick={handleSubmit}
+                  >
+                    ADD TO BAG
+                  </Button>
+                </FormControl>
+              </>
+            )}
+          </Box>
+          <Box component={Paper} square sx={{ width: "90%", margin: "0 auto" }}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Tabs value={value} onChange={handleTabChange} centered>
+                <Tab label="Description" {...a11yProps(0)} />
+                <Tab label="Ingredients" {...a11yProps(1)} />
+                <Tab label="Reviews" {...a11yProps(2)} />
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              {product?.description}
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              {product?.ingredients.toUpperCase()}
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              Reviews here sigh
+            </TabPanel>
+          </Box>
         </>
       )}
     </>

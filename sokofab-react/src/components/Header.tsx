@@ -65,10 +65,11 @@ const Header = (props: HeaderProps) => {
           noWrap
           underline="none"
           sx={{ flex: 1 }}
+          variant="h5"
         >
-          <Typography component="h2" variant="h5">
+          <Button variant="text" sx={{fontSize: "32px", color:"black", fontWeight:"bold"}}>
             {title}
-          </Typography>
+          </Button>
         </Link>
         <Search onSubmit={handleSubmit}>
           <SearchIconWrapper>

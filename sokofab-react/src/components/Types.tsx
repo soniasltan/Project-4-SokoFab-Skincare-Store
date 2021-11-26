@@ -22,6 +22,7 @@ export type AccountType = {
 }
 
 export type BagItemsType = {
+    id: number;
     name: string;
     brand: string;
     image: string;

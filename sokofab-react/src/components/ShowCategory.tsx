@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import {useParams} from "react-router-dom"
 import axios from "axios";
 import { baseURL } from "../axiosCtrl";
 import { Link } from "react-router-dom";
@@ -12,20 +13,21 @@ import { ProductsType } from "./Types";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
-const ShowProducts = () => {
+const ShowCategory = () => {
+  let { categoryname } = useParams()
   const [status, setStatus] = useState<string>("idle");
   const [products, setProducts] = useState<ProductsType[]>([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchCatProducts = async () => {
       setStatus("pending");
-      const res = await axios.get(baseURL + "/products/");
+      const res = await axios.get(`${baseURL}/category/${categoryname}/`);
       const data: ProductsType[] = res.data;
       setStatus("resolved");
       setProducts(data);
     };
-    fetchProducts();
-  }, []);
+    fetchCatProducts();
+  }, [categoryname]);
   console.log(products);
 
   let cards = products.map((product) => {
@@ -54,7 +56,7 @@ const ShowProducts = () => {
     <>
       <div className="results">
         <Typography variant="h5" align="center" sx={{mt: "1em"}}>
-            All Products
+            All {categoryname}
           </Typography>
         {status === "pending" ? (
           <Box sx={{ display: "flex" }}>
@@ -74,4 +76,4 @@ const ShowProducts = () => {
   );
 };
 
-export default ShowProducts;
+export default ShowCategory;

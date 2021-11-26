@@ -12,6 +12,8 @@ import MyAccount from "./components/MyAccount"
 import SearchProducts from "./components/SearchProducts"
 import Bag from "./components/Bag"
 import Home from "./components/Home"
+import ShowCategory from './components/ShowCategory';
+import Checkout from "./components/Checkout"
 
 
 function App() {
@@ -28,10 +30,11 @@ function App() {
   })
 
   const sections = [
-    { title: 'Cleansers', url: '#' },
-    { title: 'Moisturizers', url: '#' },
-    { title: 'Masks', url: '#' },
-    { title: 'Suncare', url: '#' },
+    { title: 'All Products', url: "/products" },
+    { title: 'Cleansers', url: "/category/Cleansers" },
+    { title: 'Moisturizers', url: "/category/Moisturizers" },
+    { title: 'Masks', url: "/category/Masks" },
+    { title: 'Suncare', url: "/category/Suncare" },
   ];
 
   return (
@@ -44,12 +47,14 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/products" element={<ProductsList />} />
       <Route path="/products/:productslug" element={<ShowProduct />} />
+      <Route path="/category/:categoryname" element={<ShowCategory />}/>
       <Route path="/search/" element={<SearchProducts />} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/account" element={<MyAccount />} />
       <Route path="/bag" element={<Bag />}/>
+      <Route path="/checkout" element={<Checkout />}/>
       </Routes>
     </div>
     </ThemeProvider>
