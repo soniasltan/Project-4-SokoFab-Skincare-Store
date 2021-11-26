@@ -19,6 +19,8 @@ const Login = () => {
     password: "",
   });
 
+  const [error, setError] = useState<any>("")
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLogin({
       ...login,
@@ -47,9 +49,13 @@ const Login = () => {
           "JWT " + localStorage.getItem("access_token");
         navigate("/");
         console.log(res);
-        console.log(res.data);
-      });
-  };
+        console.log(res.data)
+      })
+      .catch((error) => {
+        setError(error.response.data)
+        console.log(error.response.data)
+      })
+    };
   return (
     <>
       <Container component="main" maxWidth="xs">
@@ -68,8 +74,29 @@ const Login = () => {
             component="form"
             onSubmit={handleSubmit}
             noValidate
-            sx={{ mt: 1 }}
+            sx={{ mt: 3 }}
           >
+            {error ? (
+              <>
+                <Typography
+                  variant="subtitle1"
+                  align="left"
+                  sx={{ color: "red", mt: "-1em" }}
+                >
+                  Error - please correct the following:
+                </Typography>
+                <Typography
+                  variant="body2"
+                  align="left"
+                  sx={{ color: "red", mt: "0.3em" }}
+                >
+                  {error?.detail}
+                </Typography>
+                <br />
+              </>
+            ) : (
+              " "
+            )}
             <TextField
               margin="normal"
               required

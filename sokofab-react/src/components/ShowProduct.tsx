@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import axios from "axios";
 import { baseURL } from "../axiosCtrl";
 import { useParams, useNavigate } from "react-router-dom";
@@ -50,7 +50,7 @@ const ShowProducts = () => {
   const [product, setProduct] = useState<ProductsType>();
   const [qty, setQty] = useState<number>(1);
   const [bag, setBag] = useState([] as BagItemsType[])
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -82,6 +82,7 @@ const ShowProducts = () => {
           setBag([...bag, {...product, quantity: qty}])
         }
       }
+    alert(`${qty} products added to bag!`)
 };
 localStorage.setItem("bagItems", JSON.stringify(bag))
 

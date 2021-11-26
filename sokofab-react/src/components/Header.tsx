@@ -10,6 +10,7 @@ import { Search, SearchIconWrapper, StyledInputBase } from "./HeaderStyle";
 import IconButton from "@mui/material/IconButton";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { HeaderProps } from "./Types";
+import Badge from '@mui/material/Badge';
 
 const Header = (props: HeaderProps) => {
   const { sections, title } = props;
@@ -27,6 +28,7 @@ const Header = (props: HeaderProps) => {
       navigate("/search/?keyword=" + keyword);
     }
   };
+
 
   return (
     <>
@@ -83,7 +85,9 @@ const Header = (props: HeaderProps) => {
         </Search>
         <Link href="/bag" underline="none">
           <IconButton color="inherit">
+            {/* <Badge badgeContent={3} color="primary"> */}
             <ShoppingBagIcon /> 
+            {/* </Badge> */}
           </IconButton>
         </Link>
       </Toolbar>
@@ -101,7 +105,7 @@ const Header = (props: HeaderProps) => {
             href={section.url}
             sx={{ p: 1, flexShrink: 0 }}
           >
-            {section.title}
+            {section.title} 
           </Link>
         ))}
       </Toolbar>
