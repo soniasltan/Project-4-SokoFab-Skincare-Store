@@ -1,10 +1,10 @@
 import * as React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import { ProductsType } from "./Types";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import CircularProgress from "@mui/material/CircularProgress";
+// import Link from "@mui/material/Link";
+// import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -15,9 +15,9 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 
 const Bag = () => {
-  const [status, setStatus] = useState<string>("idle");
+  // const [status, setStatus] = useState<string>("idle");
   const bagItems = JSON.parse(localStorage.getItem("bagItems")!);
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   const clearCart = () => {
     localStorage.clear();
@@ -40,11 +40,11 @@ const Bag = () => {
 
     let products = bagItems?.map((item: ProductsType, index: number) => {
       return (
-        <Grid item xs={12} md={6}> 
+        <Grid item xs={12}> 
           <Card sx={{ display: "flex" }}>
             <CardMedia
               component="img"
-              sx={{ width: 160, display: { xs: "none", sm: "block" } }}
+              sx={{ width: 160, mx: 2, display: { xs: "none", sm: "block"} }}
               image={item?.image}
               alt={item?.slug}
             />
@@ -56,7 +56,7 @@ const Bag = () => {
                 Qty: {item.quantity}
               </Typography>
               <Typography variant="h6" paragraph>
-                Price: ${item.price * item.quantity}
+                Price: ${((item.price * item.quantity).toFixed(2))}
               </Typography>
             </CardContent>
           </Card>
@@ -68,7 +68,7 @@ const Bag = () => {
       <Typography variant="h5" align="center" sx={{ mt: "1em" }}>
         Shopping Bag
       </Typography>
-      {(!bagItems || bagItems.length) === 0 ? (
+      {(!bagItems || bagItems.length === 0) ? (
         <>
         <Container sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
         <Typography variant="body1" align="center" sx={{ mt: "1em" }}>
@@ -119,7 +119,7 @@ const Bag = () => {
                   Order Subtotal for (1) Product:
                 </Typography>
                 <Typography variant="h5" align="center" sx={{ mt: "1em" }}>
-                  ${orderPrice}
+                  ${orderPrice.toFixed(2)}
                 </Typography>
                 <Button
                   href="/checkout"
@@ -132,6 +132,7 @@ const Bag = () => {
                   variant="contained"
                   size="small"
                   color="inherit"
+                  sx={{ m: 1, mb: 2 }}
                   onClick={clearCart}
                 >
                   Clear cart
@@ -143,7 +144,7 @@ const Bag = () => {
                   Order Subtotal for ({totalItems}) Products:
                 </Typography>
                 <Typography variant="h5" align="center" sx={{ mt: "1em" }}>
-                  ${orderPrice}
+                  ${orderPrice.toFixed(2)}
                 </Typography>
                 <Button
                   href="/checkout"
@@ -156,6 +157,7 @@ const Bag = () => {
                   variant="contained"
                   size="small"
                   color="inherit"
+                  sx={{ m: 1, mb: 2 }}
                   onClick={clearCart}
                 >
                   Clear cart
