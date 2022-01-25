@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useEffect} from "react";
 import axios from "axios";
 import { baseURL } from "../axiosCtrl";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ProductsType, BagItemsType, TabPanelProps } from "./Types";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -45,7 +45,7 @@ function a11yProps(index: number) {
 
 const ShowProducts = () => {
   let { productslug } = useParams();
-  let navigate = useNavigate()
+  // let navigate = useNavigate()
   const [status, setStatus] = useState<string>("idle");
   const [product, setProduct] = useState<ProductsType>();
   const [qty, setQty] = useState<number>(1);

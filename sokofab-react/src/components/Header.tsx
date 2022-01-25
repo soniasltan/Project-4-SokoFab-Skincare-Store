@@ -3,14 +3,14 @@ import { useState } from "react";
 import Link from "@mui/material/Link";
 import { useNavigate } from "react-router";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+import { ProductsType } from "./Types";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 import { Search, SearchIconWrapper, StyledInputBase } from "./HeaderStyle";
 import IconButton from "@mui/material/IconButton";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { HeaderProps } from "./Types";
-import Badge from '@mui/material/Badge';
+// import Badge from '@mui/material/Badge';
 
 const Header = (props: HeaderProps) => {
   const { sections, title } = props;
@@ -28,7 +28,6 @@ const Header = (props: HeaderProps) => {
       navigate("/search/?keyword=" + keyword);
     }
   };
-
 
   return (
     <>
@@ -85,7 +84,7 @@ const Header = (props: HeaderProps) => {
         </Search>
         <Link href="/bag" underline="none">
           <IconButton color="inherit">
-            {/* <Badge badgeContent={3} color="primary"> */}
+            {/* <Badge badgeContent={bagQty} color="secondary"> */}
             <ShoppingBagIcon /> 
             {/* </Badge> */}
           </IconButton>

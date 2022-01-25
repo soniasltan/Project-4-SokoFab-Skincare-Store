@@ -125,6 +125,7 @@ const Bag = () => {
                   href="/checkout"
                   variant="contained"
                   sx={{ m: 1, mb: 2 }}
+                  onClick={clearCart}
                 >
                   Check out
                 </Button>
@@ -150,6 +151,7 @@ const Bag = () => {
                   href="/checkout"
                   variant="contained"
                   sx={{ m: 1, mb: 2 }}
+                  onClick={clearCart}
                 >
                   Check out
                 </Button>
